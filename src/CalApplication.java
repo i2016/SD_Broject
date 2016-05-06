@@ -1,4 +1,4 @@
-package com.cal;
+
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -137,21 +137,21 @@ Cal.setText(s);}
 Cal.setText(s);}
     public void miu()
     {	
-	String s= (Cal.getText()+"-");
+	String s= (Cal.getText()+" - ");
 Cal.setText(s);}
 	public void handle1()
 	{	
 		
-	String s= (Cal.getText()+"+");
+	String s= (Cal.getText()+" + ");
 Cal.setText(s);
 }
 	public void bmul()
     {	
-	String s= (Cal.getText()+"*");
+	String s= (Cal.getText()+" * ");
 Cal.setText(s);}
     public void bdiv()
     {	
-	String s= (Cal.getText()+"/");
+	String s= (Cal.getText()+" / ");
 Cal.setText(s);}
     public void bdot()
     {	
@@ -165,17 +165,17 @@ Cal.setText(s);}
 	Cal.setText(d*d+" ");}
     public void reminder()
     {
-    	String s= (Cal.getText()+"%");
+    	String s= (Cal.getText()+"% ");
     	Cal.setText(s);
     }
     public void arcleft()
     {
-    	String s= (Cal.getText()+"(");
+    	String s= (Cal.getText()+" (");
     	Cal.setText(s);
     }
     public void arcright()
     {
-    	String s= (Cal.getText()+")");
+    	String s= (Cal.getText()+") ");
     	Cal.setText(s);
     }
   /*  public void pequal()
@@ -196,20 +196,25 @@ Cal.setText(a);}*/
     {	
     	
 String s=Cal.getText();
-/* String d="";  //handel minus number 
-for(int i=0;i<s.length();i++)
+s=s.replaceAll(" ", "");
+
+char []cr=s.toCharArray();
+
+for(int i=1;i<s.length();i++)
 {
-	char ch=s.charAt(i);
-	if(m.isOperator(ch))
+	if(i==1&&cr[i-1]=='-')
+		cr[i-1]='#';
+		
+	if(m.isOperator(cr[i-1]))
 	{
-		if(m.isOperator(s.charAt(i+1)=='-'))
-		{
+		if(cr[i]=='-')
+			cr[i]='#';
 			
-			d=s.replace('-','#');
-		}
 	}
-	
-}*/
+}
+s="";
+for (Character c : cr)
+    s += c.toString();
 String a=""+m.toPost(s);
 
 Cal.setText(a);
@@ -236,12 +241,7 @@ catch(Exception s)
 	Cal.setText(" ");
 }
 }
- public void salabFun()
-    {
-    	String s= (Cal.getText()+'-');
-    	Cal.setText(s);
-    	
-    }
+ 
 
 	public static void main(String[] args) {
 		Application.launch(args);
