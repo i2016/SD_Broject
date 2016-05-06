@@ -214,7 +214,7 @@ String a=""+m.toPost(s);
 
 Cal.setText(a);
 }
-    public void salabFun()
+    public void salabFun() ///////// miuns Button
     {
     	String s= (Cal.getText()+'-');
     	Cal.setText(s);
