@@ -138,15 +138,7 @@ String number="";
     res = Double.parseDouble(("" + list.pop()));
 
     return res;
-}
-	
-	
-	
-	
-	
-	
-	// function handling user enter two operators sequential *****************
-	
+}	
 
  
 
