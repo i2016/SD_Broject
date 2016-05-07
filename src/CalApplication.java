@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 public class CalApplication extends Application {
 GridPane pane =new GridPane();
 	TextField Cal=new TextField();
+	Operation m;
 	Button p1=new Button("1");
 	Button p2=new Button("2");
 	Button p3=new Button("3");
@@ -27,9 +28,9 @@ GridPane pane =new GridPane();
 	Button div=new Button("/");
 	Button mod=new Button("%");
 	Button peq=new Button("=");
-	Button pow=new Button("x^2");
-	Button prot=new Button("root");//button for find root
-	Button pcc=new Button("<-");//button clear by one
+	Button pow=new Button("X^n");
+	Button prot=new Button("√");//button for find root
+	Button pcc=new Button("←");//button clear by one
 	Button pleftarc=new Button("(");
 	Button prightarc=new Button(")");
 	Button minusNumber=new Button("+/-");//***** for minus number which use in operations *******
@@ -159,10 +160,10 @@ Cal.setText(s);}
 Cal.setText(s);}
     public void bpow()
     {	
-	double d= Double.parseDouble(Cal.getText());
-
-	
-	Cal.setText(d*d+" ");}
+   
+    	String s= (Cal.getText()+"^");
+    	Cal.setText(s);	
+    	}
     public void reminder()
     {
     	String s= (Cal.getText()+"% ");
@@ -187,14 +188,12 @@ Cal.setText(a);}*/
     
     public void root()
     {
-    double d= Double.parseDouble(Cal.getText());	
-    	Double num= Math.sqrt(d);
-        String a=""+num;
-       Cal.setText(a);
+    	String s= (Cal.getText()+"√");
+       	Cal.setText(s);
 }
     public void pequal()
     {	
-    	
+    	try{
 String s=Cal.getText();
 s=s.replaceAll(" ", "");
 
@@ -217,7 +216,12 @@ for (Character c : cr)
     s += c.toString();
 String a=""+m.toPost(s);
 
-Cal.setText(a);
+Cal.setText(a);}
+    	catch(Exception e)
+        {
+    	Cal.setText("Error");
+    	}
+
 }
     public void salabFun() ///////// miuns Button
     {
