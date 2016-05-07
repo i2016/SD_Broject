@@ -8,7 +8,6 @@ import java.util.*;
 public class m {
 	
 	static Stack list = new Stack();
-	///////////////////////////» ‘Ê› Â· œÂ —ﬁ„ Ê·« ⁄·«„…///////////////////////// 
 	public static <E> boolean isOperand(E ch)
 	{
 	 if(ch.equals('.')||ch.equals('0')||ch.equals('1')||ch.equals('2')||ch.equals('3')||ch.equals('4')||ch.equals('5')||ch.equals('6')||ch.equals('7')||ch.equals('8')||ch.equals('9')||ch.equals('#'))
@@ -17,7 +16,7 @@ public class m {
 		 return false;
 	 
 	}
-///////////////////////////» ‘Ê› Â· œÂ —ﬁ„ Ê·« ⁄·«„…///////////////////////// 
+///////////////////////////√à√ä√î√¶√ù √•√° √è√• √ë√û√£ √¶√°√á √ö√°√á√£√â///////////////////////// 
 	public static<E> boolean isOperator(E ch)
 	{
 	 if(ch.equals('+')||ch.equals('-')||ch.equals('/')||ch.equals('*')||ch.equals('^')||ch.equals('%'))
@@ -26,7 +25,7 @@ public class m {
 		 return false;
 	 
 	}
-	///////////////////» Õœœ «·«Ê·ÊÌ… ///////////////////////
+	///////////////////√à√ä√ç√è√è √á√°√á√¶√°√¶√≠√â ///////////////////////
 	public static<E> int prority(E ch)
 	{
 		
@@ -44,7 +43,7 @@ public class m {
 		}
 	}
 		
-///////////////////////////» ÕÊ· „‰ infix «·Ï postfix///////////////////////// 
+///////////////////////////√à√ä√ç√¶√° √£√§ infix √á√°√¨ postfix///////////////////////// 
 	public static double toPost(String inp){
 		String result="";
 		String copy='('+inp+')';
@@ -102,6 +101,115 @@ public class m {
 	
 	}
 
+	
+	public static double evalPost(String exp)
+	{
+	   double res = 0;
 
+    
+    double n1;     //result of 1st popping
+    double n2;     // result of 2nd popping
+    char ch = 0 ;
+String number="";
+    for (int i = 1; i <= exp.length(); i++) {
+         ch = exp.charAt(i-1);
+
+
+            if (isOperand(ch)) {
+            	if(isOperand(exp.charAt(i)))
+            	{
+            		number+=ch;
+           		}
+            	else 
+            	{
+            		number+=ch;
+            		String s= number.replace("#", "-");
+            		list.push (Double.parseDouble(s));
+            		number="";
+            		s="";
+            	}
+            		
+            	
+            }
+             
+    else if (isOperator(ch)) 
+            
+            	 {
+                     n1 = Double.parseDouble(("" + list.pop()));
+                     n2 = Double.parseDouble(("" + list.pop()));
+
+                     switch (ch) {
+                         case '+':
+                             list.push(n1 + n2);
+                             break;
+                         case '-':
+                             list.push(n2 - n1);
+                             break;
+                         case '*':
+                             list.push(n1 * n2);
+                             break;
+                         case '/':
+                             try{
+                            	 
+                        	 list.push(n2 / n1);
+                             }catch(Exception ex)
+                             {
+                            	
+                             }
+                             
+                             break;
+
+                         default:
+                             System.out.println("Invalid operator order!");
+                     }  
+            	 }
+    else
+    {}
+    }
+            
+        
+
+    res = Double.parseDouble(("" + list.pop()));
+
+    return res;
+}
+	
+	
+	
+	
+	
+	
+	// function handling user enter two operators sequential *****************
+	
+public void checkOperators(String e)
+{
+	char ch;
+	String number = "";
+	for(int i=0;i<e.length();i++)
+	{
+		ch=e.charAt(i-1);
+		if(isOperator(ch))
+		{
+			if(isOperator(e.charAt(i)))
+			{
+				try {
+					throw new Exception("this wrong behave");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.getMessage();
+				}
+			}
+			else
+			{
+				number+=ch;
+        		list.push (Double.parseDouble(number));
+        		number="";
+			}
+			
+		}
+	}
+}
+	
+ 
 
 }
