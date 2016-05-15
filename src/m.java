@@ -1,4 +1,5 @@
-package com.gluonapplication;
+
+package javafxapplication1;
 import java.util.Stack;
 public class Operation 
 {
@@ -39,12 +40,13 @@ public static String toPost(String inp) throws Exception
        {
 		String result="";       //Create Empty Postfix String
 		String copy='('+inp+')';  //Given Infix To Store String
-		Stack<Character> operator=new Stack<>();//Create Generic Stack To Store Operator
+		Stack<Character> operator=new Stack<>();/*Create Generic Stack To Store 
+                Operator And Organize Priority Of Operatores */
 		int size=copy.length();
 		char ch,chh;
 		boolean b=false;
 		for(int i=1;i<size;i++)
-		{                             /*if ch is an operand then
+		{                             /* if ch is an operand then
                                               append it to the output postfix string */
 			
 			ch=copy.charAt(i-1);
@@ -57,7 +59,7 @@ public static String toPost(String inp) throws Exception
 				else result+=ch;
 			}
 		
-			else if(isOperator(ch))
+                        else if(isOperator(ch))
                         {  
 				if(!operator.empty())
 					{
@@ -126,13 +128,12 @@ String number="";
              
     else if (isOperator(ch)) 
             
-            	 {  
-    	     if(ch=='!'||ch=='√'||ch=='l'||ch=='g'){
-    	    	
-                     n1 = Double.parseDouble(("" + list.pop()));
+            	 {   if(ch=='!'||ch=='√'||ch=='l'||ch=='g')
+                 {
+    	    n1 = Double.parseDouble(("" + list.pop()));
                     switch (ch) {  
             	 case '√':
-                   {         
+                   {
                     	 list.push(Math.sqrt(n1));
                     	 break;
                    }
@@ -152,15 +153,10 @@ String number="";
             	
             	 {	
             		  list.push(fact(n1));break;
-            		 
-            	
-               	 }
-         
-            	 
-                  
-                
-                   }
-            	          }
+                 }
+                 }
+            	 }
+                   
             	 else
             		{
             		 n1 = Double.parseDouble(("" + list.pop()));
@@ -191,7 +187,7 @@ String number="";
                          case '%':
                         	 list.push(n2 % n1);
                             	 break;
-                        
+
                          default:
                              System.out.println("Invalid operator order!");
                      }  }
@@ -204,39 +200,9 @@ String number="";
     return res;
 }
 	
-	
-	// function handling user enter two operators sequential *****************
-public void checkOperators(String e)
-{
-	char ch;
-	String number = "";
-	for(int i=0;i<e.length();i++)
-	{
-		ch=e.charAt(i-1);
-		if(isOperator(ch))
-		{
-			if(isOperator(e.charAt(i)))
-			{
-				try {
-					throw new Exception("this wrong behave");
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.getMessage();
-				}
-			}
-			else
-			{
-				number+=ch;
-        		list.push (Double.parseDouble(number));
-        		number="";
-			}
-			
-		}
-	}
-}
 //determined if the final result is int or float number
 	
-	public static String root (String n)
+		public static String root (String n)
 	{
 		String s=n;
 
