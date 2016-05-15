@@ -1,255 +1,423 @@
-
+package com.gluonapplication;
 import java.util.Scanner;
 import javafx.application.Application;
+import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.*;
 import javafx.scene.layout.*;
-public class CalApplication extends Application {
-GridPane pane =new GridPane();
-	TextField Cal=new TextField();
-	Operation m;
-	Button p1=new Button("1");
-	Button p2=new Button("2");
-	Button p3=new Button("3");
-	Button p4=new Button("4");
-	Button p5=new Button("5");
-	Button p6=new Button("6");
-	Button p7=new Button("7");
-	Button p8=new Button("8");
-	Button p9=new Button("9");
-	Button p0=new Button("0");
-	Button pdot=new Button(".");//button for Dot
-	Button pcl=new Button("C");//button clear for all
-	Button plus=new Button("+");
-	Button miuns=new Button("-");
-	Button multi=new Button("*");
-	Button div=new Button("/");
-	Button mod=new Button("%");
-	Button peq=new Button("=");
-	Button pow=new Button("X^n");
-	Button prot=new Button("√");//button for find root
-	Button pcc=new Button("←");//button clear by one
-	Button pleftarc=new Button("(");
-	Button prightarc=new Button(")");
-	Button minusNumber=new Button("+/-");//***** for minus number which use in operations *******
-	//Button salab=new Button("(-)");
-    @Override
-    public void start(Stage stage) {
-       /* Rectangle2D platform=Screen.getPrimary().getVisualBounds();
-   			double w=platform.getWidth();
-   			double h=platform.getHeight();*/
-   		
-p1.setMinWidth(70);p7.setMinWidth(70);plus.setMinWidth(70);
-p2.setMinWidth(70);p8.setMinWidth(70);miuns.setMinWidth(70);
-p3.setMinWidth(70);p9.setMinWidth(70);multi.setMinWidth(70);
-p4.setMinWidth(70);p0.setMinWidth(70);div.setMinWidth(70);
-p5.setMinWidth(70);pdot.setMinWidth(70);mod.setMinWidth(70);
-p6.setMinWidth(70);pcl.setMinWidth(70);peq.setMinWidth(70);peq.setMaxWidth(150);
-prot.setMinWidth(70);pcc.setMinWidth(70);pow.setMinWidth(70);
-pleftarc.setMinWidth(70);prightarc.setMinWidth(70);
-//salab.setMinWidth(70);
-minusNumber.setMinWidth(70);
-pane.add(Cal,0,0,5,1);
+/**
+ *
+ * @author AHMED SERAG
+ */
+public class GluonApplication extends Application 
+{
+    GridPane pane =new GridPane();
+	TextField TextCal=new TextField();
+	Operation operation;
+	boolean []clear=new boolean[1]; // text field clear when user write new number 
+	/* Button Creation For All*/
+        Button button0=new Button("0");
+	Button button1=new Button("1");
+	Button button2=new Button("2");
+	Button button3=new Button("3");
+	Button button4=new Button("4");
+	Button button5=new Button("5");
+	Button button6=new Button("6");
+	Button button7=new Button("7");
+	Button button8=new Button("8");
+	Button button9=new Button("9");
+	Button buttondot=new Button(".");//button for Dot eg 6.4
+	Button buttonClearOne=new Button("<-");//button clear for all in TextField
+	Button buttonplus=new Button("+");
+	Button buttonmiuns=new Button("-");
+	Button buttonmulti=new Button("*");
+	Button buttondiv=new Button("/");
+	Button buttonmod=new Button("%");
+	Button buttonpeq=new Button("=");
+	Button buttonpow=new Button("X^n");//for any power 
+	Button buttonroot=new Button("√");//button for find root
+	Button buttonClearAll=new Button("AC");//button clear by one
+	Button buttonleftarc=new Button("(");
+	Button buttonrightarc=new Button(")");
+	Button buttonminusNumber=new Button("+/-");//***** for minus number which use in operations ******
+	Button buttonlog=new Button("log(");
+	Button buttonln=new Button("ln(");
+	Button buttonfact=new Button("!X");
+	@Override
+    public void start(Stage stage) 
+    { /////// Put   Minimum Width For Button
+button1.setMinWidth(70);button7.setMinWidth(70);buttonplus.setMinWidth(70);
+button2.setMinWidth(70);button8.setMinWidth(70);buttonmiuns.setMinWidth(70);
+button3.setMinWidth(70);button9.setMinWidth(70);buttonmulti.setMinWidth(70);
+button4.setMinWidth(70);button0.setMinWidth(70);buttondiv.setMinWidth(70);
+button5.setMinWidth(70); buttondot.setMinWidth(70);buttonmod.setMinWidth(70);
+button6.setMinWidth(70); buttonClearAll.setMinWidth(70);buttonpeq.setMinWidth(70);
+buttonpeq.setMaxWidth(150);buttonroot.setMinWidth(70); buttonClearOne.setMinWidth(70);
+buttonpow.setMinWidth(70);buttonleftarc.setMinWidth(70);buttonrightarc.setMinWidth(70);
+buttonminusNumber.setMinWidth(70);buttonlog.setMinWidth(70);
+buttonln.setMinWidth(70);buttonfact.setMinWidth(70);
+button1.setPrefHeight(50);button7.setPrefHeight(50);buttonplus.setPrefHeight(50);
+button2.setPrefHeight(50);button8.setPrefHeight(50);buttonmiuns.setPrefHeight(50);
+button3.setPrefHeight(50);button9.setPrefHeight(50);buttonmulti.setPrefHeight(50);
+button4.setPrefHeight(50);button0.setPrefHeight(50);buttondiv.setPrefHeight(50);
+button5.setPrefHeight(50); buttondot.setPrefHeight(50);buttonmod.setPrefHeight(50);
+button6.setPrefHeight(50); buttonClearAll.setPrefHeight(50);buttonpeq.setPrefHeight(50);
+buttonpeq.setPrefHeight(50);buttonroot.setPrefHeight(50); buttonClearOne.setPrefHeight(50);
+buttonpow.setPrefHeight(50);buttonleftarc.setPrefHeight(50);buttonrightarc.setPrefHeight(50);
+buttonminusNumber.setPrefHeight(50);buttonfact.setMinHeight(50);
+buttonlog.setPrefHeight(50);buttonln.setPrefHeight(50);
+TextCal.setPrefHeight(50);
+pane.add(TextCal,0,0,5,2);
 pane.setPadding(new Insets(20,20,20,20));
 pane.setHgap(5);
 pane.setVgap(5);
 //////////////////PUT BUTTON IN PANE////////
-pane.addRow(1,p1,p2,p3,plus,pcc);    
-pane.addRow(2,p4,p5, p6,miuns,prot);    
-pane.addRow(3,p7,p8, p9,multi,pow);
-pane.addRow(4,p0,pdot,pcl,div,mod); 
-pane.add(peq,0,5,2,1);
-pane.add(pleftarc,3,5);
-pane.add(prightarc,4,5);
-pane.add(minusNumber,2,5);
-Cal.setEditable(false); //for prevent to write from the keybord
-p0.setOnAction(e->b0());
-p1.setOnAction(e->b1());
-p2.setOnAction(e->b2());
-p3.setOnAction(e->b3());
-p4.setOnAction(e->b4());
-p5.setOnAction(e->b5());
-p6.setOnAction(e->b6());
-p7.setOnAction(e->b7());
-p8.setOnAction(e->b8());
-p9.setOnAction(e->b9());
-pcl.setOnAction(e->pclear());
-plus.setOnAction(e->handle1());
-miuns.setOnAction(e->miu());
-multi.setOnAction(e->bmul());
-div.setOnAction(e->bdiv());
-pow.setOnAction(e->bpow());
-pdot.setOnAction(e->bdot());
-mod.setOnAction(e->reminder());
-pleftarc.setOnAction(e->arcleft());
-prightarc.setOnAction(e->arcright());
-peq.setOnAction(e->pequal());
-prot.setOnAction(e->root());
-pcc.setOnAction(e->clearone());
-minusNumber.setOnAction(e->salabFun());// for miuns number
-Cal.setEditable(false); //for prevent to write from the keybord
+pane.addRow(2,buttonpow,buttonmod,buttonClearAll,buttonClearOne); 
+pane.addRow(3,button1,button2,button3,buttonplus);    
+pane.addRow(4,button4,button5, button6,buttonmiuns);    
+pane.addRow(5,button7,button8, button9,buttonmulti);
+pane.addRow(6,button0, buttondot, buttonminusNumber,buttondiv); 
+pane.addRow(7,buttonpeq,buttonroot,buttonleftarc,buttonrightarc);
+pane.addRow(8,buttonlog,buttonln,buttonfact);
+
+TextCal.setEditable(false); //for prevent to write from the keybord
+//Event For All Button 
+button0.setOnAction(e->Funzero()); /////// Action in funcation
+button1.setOnAction(e->Funone());
+button2.setOnAction(e->Funtwo());
+button3.setOnAction(e->Funthree());
+button4.setOnAction(e->Funfour());
+button5.setOnAction(e->Funfive());
+button6.setOnAction(e->Funsix());
+button7.setOnAction(e->Funseven());
+button8.setOnAction(e->Funeight());
+button9.setOnAction(e->Funnine());
+ buttonClearAll.setOnAction(e->Funclear());
+buttonplus.setOnAction(e->Funplus());
+buttonmiuns.setOnAction(e->Funmiuns());
+buttonmulti.setOnAction(e->Funmul());
+buttondiv.setOnAction(e->Fundiv());
+ buttonpow.setOnAction(e->Funpow());
+ buttondot.setOnAction(e->Fundot());
+buttonmod.setOnAction(e->Funreminder());
+buttonleftarc.setOnAction(e->Funarcleft());
+buttonrightarc.setOnAction(e->Funarcright());
+buttonpeq.setOnAction(e->Funequal());
+buttonroot.setOnAction(e->Funroot());
+ buttonClearOne.setOnAction(e->Funclearone());
+buttonminusNumber.setOnAction(e->Funmiunsnumber());// for miuns number
+buttonlog.setOnAction(e->Funsin()); /////// Action in funcation
+buttonln.setOnAction(e->Funtan());
+buttonfact.setOnAction(e->Funfact());
+///////CSS modification///////
+pane.setStyle("-fx-font-size:20;-fx-background-color:#000000;");
+buttonClearOne.setStyle("-fx-background-color:#bd262b;-fx-effect:dropshadow(two-pass-box , #375557 , 2,1,1,1 )");
+buttonClearAll.setStyle("-fx-background-color:#bd262b;-fx-effect:dropshadow(two-pass-box , #375557 , 2,1,1,1 )");
+TextCal.setStyle("-fx-background-color:white;-fx-text-fill: black;");
+buttonplus.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttonmiuns.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+
+buttonmulti.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttondiv.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttonpow.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttonroot.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+
+buttonmod.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttonleftarc.setStyle("-fx-background-color:#393939;-fx-text-fill: white;");
+buttonrightarc.setStyle("-fx-background-color:#393939;-fx-text-fill: white;");
+buttonminusNumber.setStyle("-fx-background-color: #393939;-fx-text-fill: white;");
+buttonpeq.setStyle("-fx-background-color:#339933;-fx-text-fill: white;");
+
+button0.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button1.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button2.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button3.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button4.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button5.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button6.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button7.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button8.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+button9.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+buttondot.setStyle("-fx-background-color:#1f1f1f;-fx-text-fill: white;");
+
 Scene scene=new Scene(pane);
 stage.setTitle("Calculator");
 stage.setScene(scene);
 stage.show();
     }
-      public void b0()
-    {	
-	String s= (Cal.getText()+"0");
-Cal.setText(s);}
+public void Funzero()
+   {
+    	  if(clear[0]==true)
+      	{
+      		TextCal.clear();
+      		
+      	}
+      	clear[0]=false;
+String s= (TextCal.getText()+"0");
+TextCal.setText(s);
+   }
+   
   
-    public void b1()
+public void Funone()
     {	
-	String s= (Cal.getText()+"1");
-Cal.setText(s);}
-    public void b2()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"1");
+TextCal.setText(s);
+    }
+public void Funtwo()
     {	
-	String s= (Cal.getText()+"2");
-Cal.setText(s);}
-    public void b3()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"2");
+TextCal.setText(s);
+    }
+public void Funthree()
     {	
-	String s= (Cal.getText()+"3");
-Cal.setText(s);}
-    public void b4()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"3");
+TextCal.setText(s);}
+public void Funfour()
     {	
-	String s= (Cal.getText()+"4");
-Cal.setText(s);}
-    public void b5()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"4");
+TextCal.setText(s);
+    }
+public void Funfive()
     {	
-	String s= (Cal.getText()+"5");
-Cal.setText(s);}
-    public void b6()
-    {	
-	String s= (Cal.getText()+"6");
-Cal.setText(s);}
-    public void b7()
-    {	
-	String s= (Cal.getText()+"7");
-Cal.setText(s);}
-    public void b8()
-    {	
-	String s= (Cal.getText()+"8");
-Cal.setText(s);}
-    public void b9()
-    {	
-	String s= (Cal.getText()+"9");
-Cal.setText(s);}
-    public void miu()
-    {	
-	String s= (Cal.getText()+" - ");
-Cal.setText(s);}
-	public void handle1()
-	{	
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"5");
+TextCal.setText(s);
+    }
+public void Funsix()
+    {	if(clear[0]==true)
+	{
+		TextCal.clear();
 		
-	String s= (Cal.getText()+" + ");
-Cal.setText(s);
-}
-	public void bmul()
+	}
+	clear[0]=false;
+	String s= (TextCal.getText()+"6");
+TextCal.setText(s);
+    }
+ public void Funseven()
     {	
-	String s= (Cal.getText()+" * ");
-Cal.setText(s);}
-    public void bdiv()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"7");
+TextCal.setText(s);
+    }
+public void Funeight()
+    {	if(clear[0]==true)
+	{
+		TextCal.clear();
+		
+	}
+	clear[0]=false;
+	String s= (TextCal.getText()+"8");
+TextCal.setText(s);
+    }
+    public void Funnine()
     {	
-	String s= (Cal.getText()+" / ");
-Cal.setText(s);}
-    public void bdot()
+    	if(clear[0]==true)
+    	{
+    		TextCal.clear();
+    		
+    	}
+    	clear[0]=false;
+	String s= (TextCal.getText()+"9");
+TextCal.setText(s);
+    }
+public void Funmiuns()
     {	
-	String s= (Cal.getText()+".");
-Cal.setText(s);}
-    public void bpow()
+String s= (TextCal.getText()+" - ");
+TextCal.setText(s);
+clear[0]=false;
+    }
+public void Funplus()
+     {	
+		
+	String s= (TextCal.getText()+" + ");
+TextCal.setText(s);
+clear[0]=false;
+      }
+public void Funmul()
+    {	
+	String s= (TextCal.getText()+" * ");
+        TextCal.setText(s);
+        clear[0]=false;
+    }
+public void Fundiv()
+    {	
+	String s= (TextCal.getText()+" / ");
+TextCal.setText(s);
+clear[0]=false;
+    }
+public void Fundot()
+    {	
+	String s= (TextCal.getText()+".");
+TextCal.setText(s);
+    }
+public void Funpow()
     {	
    
-    	String s= (Cal.getText()+"^");
-    	Cal.setText(s);	
-    	}
-    public void reminder()
+    	String s= (TextCal.getText()+"^");
+    	TextCal.setText(s);
+    	clear[0]=false;
+     }
+public void Funreminder()
     {
-    	String s= (Cal.getText()+"% ");
-    	Cal.setText(s);
+    	String s= (TextCal.getText()+"% ");
+    	TextCal.setText(s);
+    	clear[0]=false;
     }
-    public void arcleft()
-    {
-    	String s= (Cal.getText()+" (");
-    	Cal.setText(s);
-    }
-    public void arcright()
-    {
-    	String s= (Cal.getText()+") ");
-    	Cal.setText(s);
-    }
-  /*  public void pequal()
-    {	
-String s=Cal.getText();
-String a=""+m.toPost(s);
-
-Cal.setText(a);}*/
-    
-    public void root()
-    {
-    	String s= (Cal.getText()+"√");
-       	Cal.setText(s);
-}
-    public void pequal()
-    {	
-    	try{
-String s=Cal.getText();
-s=s.replaceAll(" ", "");
-
-char []cr=s.toCharArray();
-
-for(int i=1;i<s.length();i++)
-{
-	if(i==1&&cr[i-1]=='-')
-		cr[i-1]='#';
-		
-	if(m.isOperator(cr[i-1]))
+public void Funarcleft()
+    { 
+        if(clear[0]==true)
 	{
-		if(cr[i]=='-')
-			cr[i]='#';
-			
+		TextCal.clear();
+		
 	}
-}
-s="";
-for (Character c : cr)
-    s += c.toString();
-String a=""+m.toPost(s);
-
-Cal.setText(a);}
-    	catch(Exception e)
-        {
-    	Cal.setText("Error");
-    	}
-
-}
-    public void salabFun() ///////// miuns Button
+	clear[0]=false;
+    	String s= (TextCal.getText()+" (");
+    	TextCal.setText(s);
+    	
+    }
+public void Funarcright()
+    { 
+        if(clear[0]==true)
+	{
+		TextCal.clear();
+		
+	}
+	clear[0]=false;
+    	String s= (TextCal.getText()+") ");
+    	TextCal.setText(s);
+    }
+    
+public void Funroot()
     {
-    	String s= (Cal.getText()+'-');
-    	Cal.setText(s);
+    	String s= (TextCal.getText()+"√");
+       	TextCal.setText(s);
+       	clear[0]=false;
+      }
+public void Funequal()
+ {	
+    	clear[0]=false;
+    	try
+        {
+    		
+String s=TextCal.getText();
+String cal=""+Operation.toPost(Operation.root(s));
+TextCal.setText(cal);
+clear[0]=true;
+       }
+    	catch(Exception e)
+        { 
+    		if(TextCal.getText().isEmpty())
+    		{
+    		 	TextCal.setText("");
+    		}
+    		
+    		else
+        {
+    	TextCal.setText("Error");
+    	clear[0]=true;
+    	}}
+
+}
+public void Funmiunsnumber() ///////// miuns Button
+    {
+    	String s= (TextCal.getText()+'-');
+    	TextCal.setText(s);
+    	clear[0]=false;
     	
     }
 
-public void pclear()
+public void Funclear()
 {	
 
-Cal.clear();}
-/////////////////////clear if text is empty do nothing
-public void clearone() 
+TextCal.clear(); /////////////////////clear if text is empty do nothing
+}
+public void Funclearone() 
 {
-	try{
-	Cal.deleteText(Cal.getText().length()-1, Cal.getText().length());	
+	try
+        {
+	TextCal.deleteText(TextCal.getText().length()-1, TextCal.getText().length());
+        }
+         catch(Exception s)
+        {
+	TextCal.setText(" ");
+        }
 }
-catch(Exception s)
+public void Funsin()
 {
-	Cal.setText(" ");
+ 	  if(clear[0]==true)
+   	{
+   		TextCal.clear();
+   		
+   	}
+   	clear[0]=false;
+String s= (TextCal.getText()+"log(");
+TextCal.setText(s);
 }
+
+public void Funtan()
+{
+ 	  if(clear[0]==true)
+   	{
+   		TextCal.clear();
+   		
+   	}
+   	clear[0]=false;
+String s= (TextCal.getText()+"ln(");
+TextCal.setText(s);
 }
- 
-
-	public static void main(String[] args) {
-		Application.launch(args);
-
-	}
+public void Funfact()
+{
+ 	  if(clear[0]==true)
+   	{
+   		TextCal.clear();
+   		
+   	}
+   	clear[0]=false;
+String s= (TextCal.getText()+"!");
+TextCal.setText(s);
+}
+    public static void main(String[] args) 
+    
+    {
+    
+        launch(args);
+    }
+  
 
 }
