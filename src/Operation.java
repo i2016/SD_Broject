@@ -345,16 +345,16 @@ public static String toPost(String inp) throws Exception
  {
 	 if(n.length()==0)
 	 {
-		 return false;
+		 return false;//add operator
 	 }
 	String []d=n.split(" ");
 	String f=d[d.length-1];
 	 if(f.contains(c))
 	 {
-		 return true;
+		 return true;//dont add operator
 	 }
 	 else
-		 return false;
+		 return false;// add operator
  }
  
  //to avoid duplicate operator
@@ -363,7 +363,7 @@ public static String toPost(String inp) throws Exception
 
 	 if(n.length()==0)
 	 {
-		 return true;
+		 return true;//dont add operator
 	 }
 		String []d=n.split(" ");
 		String f=d[d.length-1];
@@ -374,7 +374,7 @@ public static String toPost(String inp) throws Exception
 			return true;
 		}
 		else
-			return false;
+			return false;// add operator
 	 
  }
  
